@@ -1,0 +1,121 @@
+	-- Create and use database
+CREATE DATABASE IF NOT EXISTS LibraryDB;
+USE LibraryDB;
+
+-- Drop tables in correct order
+DROP TABLE IF EXISTS Reservations;
+DROP TABLE IF EXISTS Books;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Users;
+
+-- ======================
+-- Users table
+-- ======================
+CREATE TABLE Users (
+    Username VARCHAR(40) PRIMARY KEY,
+    Password VARCHAR(40) NOT NULL,         -- Minimum 6 characters; validate in PHP
+    FirstName VARCHAR(40) NOT NULL,
+    Surname VARCHAR(40) NOT NULL,
+    AddressLine1 VARCHAR(50),
+    AddressLine2 VARCHAR(50),
+    Email VARCHAR(50),
+    City VARCHAR(40),
+    Mobile CHAR(10) NOT NULL,             -- Exactly 10 digits; validate in PHP
+    CONSTRAINT uq_user UNIQUE (Username)
+);
+
+-- Sample Users (20+)
+INSERT INTO Users (Username, Password, FirstName, Surname, AddressLine1, AddressLine2, Email, City, Mobile) VALUES
+('Ricky1','tone12','Rena','Lary','37 Butter Road','Fairview','renalary@gmail.com','Dublin','0855459732'),
+('Anna22','pass12','Anna','Smith','12 Oak Street','Clontarf','annasmith@gmail.com','Dublin','0871234567'),
+('JohnD','jd2020','John','Doe','45 Pine Avenue','Rathmines','johndoe@gmail.com','Dublin','0851234567'),
+('LisaM','lisaM1','Lisa','Morgan','78 Elm Street','Drumcondra','lisamorgan@gmail.com','Dublin','0862345678'),
+('TomB','tomB12','Tom','Brown','9 Maple Road','Sandyford','tombrown@gmail.com','Dublin','0873456789'),
+('SarahW','sw1234','Sarah','White','21 Birch Lane','Tallaght','sarahwhite@gmail.com','Dublin','0859876543'),
+('DavidK','TUDtes25','David','King','8 Templeroan Park','Knocklyn','davidkeane121@gmail.com','Dublin','0858749732'),
+('EmmaS','es9876','Emma','Stone','56 Willow Drive','Coolock','emmastone@gmail.com','Dublin','0876543210'),
+('MarkH','mh3212','Mark','Harris','32 Oak Avenue','Lucan','markharris@gmail.com','Dublin','0854321987'),
+('SophiaL','sl6543','Sophia','Lee','5 Ash Road','Ranelagh','sophialee@gmail.com','Dublin','0863219876'),
+('JamesC','jc7890','James','Clark','88 Fir Street','Donaghmede','jamesclark@gmail.com','Dublin','0856789012'),
+('MiaP','mp3210','Mia','Patel','77 Holly Lane','Clonskeagh','miapatel@gmail.com','Dublin','0861234512'),
+('RyanG','rg6540','Ryan','Green','43 Spruce Drive','Phibsborough','ryangreen@gmail.com','Dublin','0878912345'),
+('OliviaT','ot9876','Olivia','Taylor','12 Cherry Lane','Ballsbridge','oliviataylor@gmail.com','Dublin','0858912346'),
+('EthanJ','ej1234','Ethan','Jones','39 Walnut Street','Drimnagh','ethanjones@gmail.com','Dublin','0865432198'),
+('ChloeR','cr4567','Chloe','Roberts','64 Poplar Avenue','Sutton','chloeroberts@gmail.com','Dublin','0876543219'),
+('LiamF','lf7890','Liam','Foster','21 Pine Crescent','Clontarf','liamfoster@gmail.com','Dublin','0859876123'),
+('GraceH','gh3210','Grace','Hill','88 Oak Street','Drumcondra','gracehill@gmail.com','Dublin','0869876543'),
+('NoahM','nm6543','Noah','Mitchell','37 Maple Avenue','Tallaght','noahmitchell@gmail.com','Dublin','0871234560'),
+('EllaB','eb9876','Ella','Bennett','56 Cedar Lane','Lucan','ellabennett@gmail.com','Dublin','0853456789');
+
+-- ======================
+-- Category table
+-- ======================
+CREATE TABLE Category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(50) NOT NULL,
+    CONSTRAINT uq_category UNIQUE (CategoryName)
+);
+
+INSERT INTO Category (CategoryName) VALUES
+('Fiction'),
+('Non-Fiction'),
+('Science'),
+('History'),
+('Technology'),
+('Biology'),
+('Health');
+
+-- ======================
+-- Books table
+-- ======================
+CREATE TABLE Books (
+    ISBN VARCHAR(20) PRIMARY KEY,
+    BookTitle VARCHAR(100) NOT NULL,
+    Author VARCHAR(50) NOT NULL,
+    Edition INT,           -- Ensure Edition > 0 in PHP
+    Year INT,              -- Ensure Year > 0 in PHP
+    CategoryID INT NOT NULL,
+    Available TINYINT(1) DEFAULT 1,
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+);
+
+-- Indexes for faster search
+CREATE INDEX idx_booktitle ON Books(BookTitle);
+CREATE INDEX idx_author ON Books(Author);
+CREATE INDEX idx_categoryid ON Books(CategoryID);
+
+INSERT INTO Books (ISBN, BookTitle, Author, Edition, Year, CategoryID) VALUES
+('913-391980','The Great Gatsby', 'F. Scott Fitzgerald', 3 , 1945, 1),
+('32-314144','A Brief History of Time', 'Stephen Hawking', 2 , 2007, 3),
+('10-213142','Sapiens', 'Yuval Noah Harari', 4 ,2012, 2),
+('011-31441144','World War II', 'Winston Churchill', 6 ,1945, 4),
+('213-414123','The Alchemist','Paulo Coelho',1,1988,1),
+('321-987654','Clean Code','Robert C. Martin',2,2008,5),
+('432-876543','The Selfish Gene','Richard Dawkins',3,1976,6),
+('543-765432','Thinking, Fast and Slow','Daniel Kahneman',1,2011,2),
+('654-654321','The Diary of a Young Girl','Anne Frank',2,1947,4),
+('765-543210','To Kill a Mockingbird','Harper Lee',5,1960,1),
+('876-432109','The Elegant Universe','Brian Greene',2,1999,3),
+('987-321098','The Power of Habit','Charles Duhigg',1,2012,2),
+('111-222333','1984','George Orwell',3,1949,1),
+('222-333444','Guns, Germs, and Steel','Jared Diamond',2,1997,4),
+('333-444555','Introduction to Algorithms','Cormen et al.',3,2009,5),
+('444-555666','Biology: The Essentials','Marielle Hoefnagels',1,2016,6),
+('555-666777','How Not to Die','Michael Greger',2,2015,7),
+('666-777888','Pride and Prejudice','Jane Austen',4,1813,1),
+('777-888999','The Immortal Life of Henrietta Lacks','Rebecca Skloot',1,2010,7),
+('888-999000','Deep Work','Cal Newport',1,2016,5);
+
+-- ======================
+-- Reservations table (empty)
+-- ======================
+CREATE TABLE Reservations (
+    ReservationID INT AUTO_INCREMENT PRIMARY KEY,
+    ISBN VARCHAR(20) NOT NULL,
+    Username VARCHAR(40) NOT NULL,
+    ReservationDate DATE NOT NULL,
+    FOREIGN KEY (Username) REFERENCES Users(Username) ON DELETE CASCADE,
+    FOREIGN KEY (ISBN) REFERENCES Books(ISBN) ON DELETE CASCADE,
+    CONSTRAINT uq_reservation UNIQUE (ISBN, Username)
+    -- Note: Date validation handled in PHP; cannot use CURDATE() in CHECK
+);
