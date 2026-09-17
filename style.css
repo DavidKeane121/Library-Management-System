@@ -1,0 +1,101 @@
+/* ==================== Base Styles ==================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* light background for readability */
+    color: #222;
+}
+
+/* ==================== Header ==================== */
+header {
+    background-color: #003366; /* Dublin dark blue */
+    color: #ffffff;
+    padding: 15px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* ==================== Navigation ==================== */
+nav a {
+    color: #f4f4f4; /* light text for links */
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ffcc00; /* Dublin gold accent on hover */
+}
+
+/* ==================== Main Content ==================== */
+main {
+    padding: 20px;
+}
+
+/* ==================== Tables ==================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #003366; /* Dublin dark blue header */
+    color: #ffffff;
+}
+
+/* ==================== Buttons ==================== */
+button {
+    background-color: #003366; /* Dublin blue */
+    color: #ffffff;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #ffcc00; /* Gold hover effect */
+    color: #003366;
+}
+
+/*Footer*/
+footer 
+{
+    background-color: #003366;
+    color: #ffffff;
+    padding: 15px 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/*Forms*/
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select 
+{
+    padding: 7px;
+    width: 250px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+label 
+{
+    font-weight: bold;
+}
